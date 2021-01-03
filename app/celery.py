@@ -23,6 +23,12 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 # app.autodiscover_tasks()
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
+"""
+        Weekly reports generated and mailed to admin (Monday to Sunday [Executed every monday midnight]
+        ie If scripts execute on 04-01-2021 the reports from 2020-12-28 to 2021-01-03 will be generated 
+        (both dates are inclusive)
+
+        """
 app.conf.beat_schedule = {
     'get_weekly_report': {
         'task': 'weekly_report',
