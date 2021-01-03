@@ -23,31 +23,12 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 # app.autodiscover_tasks()
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
-# app.conf.beat_schedule = {
-#     'get_nearing_deadlines': {
-#         'task': 'nearing_deadlines',
-#         # 'schedule': crontab(),
-#         'schedule': crontab(minute=0, hour=9, day_of_month='*', day_of_week='*'),
-#         # 'schedule': timedelta(seconds=10),
-#
-#     },
-#     'clear_bulk_asset': {
-#             'task': 'clear_temp_bulk_asset',
-#             # 'schedule': crontab(),
-#             'schedule': crontab(minute=0, hour=12, day_of_month='*', day_of_week='*'),
-#             # 'schedule': timedelta(seconds=10),
-#
-#         },
-#     'add_asset_to_shopify': {
-#             'task': 'add_asset_to_shopify',
-#             # 'schedule': crontab(),
-#             'schedule': crontab(minute=0, hour=3, day_of_month='*', day_of_week='*'),
-#             # 'schedule': timedelta(seconds=10),
-#
-#         },
-#     'create_payslips': {
-#         'task': 'create_payslips',
-#         'schedule': crontab(minute='*/5')
-#         # 'schedule': crontab(hour=18)
-#     }
-# }
+app.conf.beat_schedule = {
+    'get_weekly_report': {
+        'task': 'weekly_report',
+        # 'schedule': crontab(),
+        'schedule': crontab(minute=0, hour=0, day_of_month='*', day_of_week='monday'),
+        # 'schedule': timedelta(seconds=10),
+
+    }
+}

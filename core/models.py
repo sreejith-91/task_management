@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 
 class UserManager(BaseUserManager):
@@ -33,14 +34,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-
+    is_superuser = models.BooleanField(
+        default=False,
+        help_text=_('Designates whether the user can log into this admins site.'),
+    )
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
 
 
 class Task(models.Model):
-    """Task to be used for a recipe"""
+    """Task to be used for a task"""
     name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     time_required = models.FloatField(default=0.00)
@@ -59,9 +63,8 @@ class Task(models.Model):
         related_name='task_comment_rel',
         null=True, blank=True
     )
+    commented_on = models.DateTimeField(null=True, blank=True)
     status = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
-
-
