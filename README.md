@@ -3,6 +3,8 @@ An API App for task management
 
 Setup to configure and run the project:
 
+pip install -r requirements.txt
+
 1. python manage.py migrate
 2. python manage.py runserver
 3. sudo systemctl restart redis.service
